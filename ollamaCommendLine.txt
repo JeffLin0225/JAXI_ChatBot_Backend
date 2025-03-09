@@ -1,0 +1,22 @@
+========================= 加載ollama ========================= 
+
+docker pull ollama/ollama
+
+docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+
+========================= 加載llama3.2 3B 模型 ========================= 
+
+docker exec -it ollama ollama run llama3.2:3B
+
+============= 進入ollama container 內部 || 操作llama模型 ================
+
+docker exec -it ollama bash
+
+=========== 結束對話 ===========
+
+/bye
+
+=========== 離開容器 ===========
+
+exit
+

@@ -1,0 +1,26 @@
+=============== Chat 測試 ===============
+
+[POST] http://localhost:5001/ask
+(form-data) 
+
+[TEXT]
+key: question , value: 介紹一下這張圖片
+[FILE] 
+key: image , value: [file]  
+
+=============== Ollama 測試 ===============
+
+[POST] http://localhost:11434/api/generate
+
+{
+  "model": "llama3.2:3b",
+  "prompt": "你好啊我是家賢？"
+}
+
+=============== BLIP 測試 ===============
+
+[POST]  http://localhost:5001/caption
+
+form-data 
+[FILE] 
+key: image , value: [file]  

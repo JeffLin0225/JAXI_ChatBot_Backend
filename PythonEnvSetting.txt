@@ -1,0 +1,14 @@
+========== VSCode 指定解釋器 ========== 
+>Python Select Interpreter
+
+========== 查看環境 ==========
+python --version
+conda env list
+
+pip show [package]
+
+========== 創建虛擬環境 ========== 
+conda create -n myenv python=3.9
+
+========== 指定虛擬環境 ========== 
+conda activate myenv
