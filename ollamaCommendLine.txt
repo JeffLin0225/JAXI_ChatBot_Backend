@@ -12,6 +12,9 @@ docker exec -it ollama ollama run llama3.2:3B
 
 docker exec -it ollama bash
 
+ollama run llama3.2:3B
+ollama run gemma3:4b
+
 =========== 結束對話 ===========
 
 /bye
