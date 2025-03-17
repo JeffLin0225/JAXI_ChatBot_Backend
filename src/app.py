@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # 引入 CORS
 from PIL import Image
 import numpy as np
 
@@ -9,6 +10,8 @@ from ocr_processor import PaddleOCR
 # 初始化
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024  # 10MB 限制
+app.config['JSON_AS_ASCII'] = False  # 禁用 ASCII 編碼，讓中文直接輸出
+CORS(app)  # 啟用 CORS，允許所有來源訪問（預設設定）
 
 try:
     blip_processor = BLIPProcessor()
@@ -18,14 +21,14 @@ except Exception as e:
     print(f"初始化失敗：{str(e)}")
     exit(1)
 
-# Web api 
+# Web api pip show flask
 @app.route('/ask', methods=['POST'])
 def generate_caption():
 
     # 取得圖片跟問題
     image_file = request.files.get('image')
     question = request.form.get('question')
-
+    print("有打到後端")
     if not image_file and (not question or question.strip== "" ):
         return jsonify({"error" : "請輸入文字或是圖片"}),400
 
@@ -53,7 +56,7 @@ def generate_caption():
             answer = llama_handler.ask_llama( question , ocrDescription , blipDescription )
         else:
             answer = llama_handler.ask_llama( question )
-    
+    print(answer)
     return jsonify(
         {
             "OCR_Description" : ocrDescription if ocrDescription else "無文字分析描述" , 
