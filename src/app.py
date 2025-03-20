@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS  # 引入 CORS
 from PIL import Image
 import numpy as np
+import time
 
 from blip_processor import BLIPProcessor
 from llama_handler import LlamaHandler
@@ -51,19 +52,22 @@ def generate_caption():
         except Exception as e:
             return jsonify({"error": f"圖片處理失敗：{str(e)}"}), 400
         
-    if question:
-        if blipDescription:
-            answer = llama_handler.ask_llama( question , ocrDescription , blipDescription )
+    def generate_stream():
+        if question:
+            if blipDescription:
+                # 假設 ask_llama 返回一個生成器，逐步生成回應
+                for chunk in llama_handler.ask_llama(question, ocrDescription, blipDescription):
+                    yield f"data: {chunk}\n\n"
+            else:
+                for chunk in llama_handler.ask_llama(question):
+                    yield f"data: {chunk}\n"
+                    time.sleep(0.05)  # 在每個 chunk 後延遲 0.1 秒
         else:
-            answer = llama_handler.ask_llama( question )
-    print(answer)
-    return jsonify(
-        {
-            "OCR_Description" : ocrDescription if ocrDescription else "無文字分析描述" , 
-            "BLIP_Description" : blipDescription if blipDescription else "無圖片描述" , 
-            "answer" : answer if answer else blipDescription
-        }
-    )
+            yield f"data: {blipDescription}\n\n"
+        yield "data: [DONE]\n\n"
+
+    # 使用 SSE 格式返回流式回應
+    return Response(stream_with_context(generate_stream()), mimetype='text/event-stream')
 
 
 # 錯誤處理 (413圖片超出規範大小)
