@@ -17,4 +17,4 @@ class BLIPProcessor:
         generated_ids = self.model.generate(**inputs)
         description = self.processor.decode(generated_ids[0], skip_special_tokens=True)
         description_tw = self.translator.translate(description, dest="zh-tw").text  # 同步翻譯
-        return description_tw 
+        return description 
