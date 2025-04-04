@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, jsonify ,request
-from StableDiffusion import StableDiffusion
+from src.ModelService.stable_diffusion_processor import StableDiffusion
 from PIL import Image
-from blip_processor import BLIPProcessor
+from src.ModelService.blip_processor import BLIPProcessor
 
 '''測試檔案'''
 

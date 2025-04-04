@@ -1,6 +1,6 @@
 from paddleocr import PaddleOCR as PaddleOCRLib
 
-class PaddleOCR:
+class PaddleOCRProcessor:
 
     # 處理圖片的 OCR 並返回結果
     def process_ocr(self, image_path, lang='ch'):

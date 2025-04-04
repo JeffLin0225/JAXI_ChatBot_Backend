@@ -1,7 +1,4 @@
 import chromadb
-from jinja2.lexer import newline_re
-from sympy import false
-
 
 class ChromaDatabaseRepository:
 

@@ -4,9 +4,7 @@ from PIL import Image
 import numpy as np
 import time
 
-from blip_processor import BLIPProcessor
-from llama_handler import LlamaHandler
-from ocr_processor import PaddleOCR
+from src.ModelService import BLIPProcessor , PaddleOCRProcessor , OllamaHandler
 
 '''
 初始化 Flask 
@@ -21,8 +19,8 @@ CORS(app)  # 啟用 CORS
 '''
 try:
     blip_processor = BLIPProcessor()
-    llama_handler = LlamaHandler()
-    ocr_processor = PaddleOCR()
+    llama_handler = OllamaHandler()
+    ocr_processor = PaddleOCRProcessor()
 except Exception as e:
     print(f"初始化失敗：{str(e)}")
     exit(1)

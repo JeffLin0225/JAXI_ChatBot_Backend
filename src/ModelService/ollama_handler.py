@@ -1,7 +1,7 @@
 import requests  
-from search_handler import SearchHandler
+from src.FunctionCall.google_search_handler import SearchHandler
 
-class LlamaHandler:
+class OllamaHandler:
     OLLAMA_API_URL = "http://localhost:11434/api/generate"
 
     def __init__(self):

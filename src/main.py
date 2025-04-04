@@ -1,4 +1,4 @@
-from StableDiffusion import StableDiffusion
+from src.ModelService.stable_diffusion_processor import StableDiffusion
 import base64
 from io import BytesIO
 
