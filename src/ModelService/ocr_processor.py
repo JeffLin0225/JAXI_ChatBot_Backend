@@ -1,6 +1,6 @@
 from paddleocr import PaddleOCR as PaddleOCRLib
 
-class PaddleOCRProcessor:
+class OCRProcessor:
 
     # 處理圖片的 OCR 並返回結果
     def process_ocr(self, image_path, lang='ch'):
@@ -8,7 +8,7 @@ class PaddleOCRProcessor:
             # 不帶參數的初始化
             ocr = PaddleOCRLib(show_log = False ,lang=lang)
             
-            result = ocr.ocr(image_path)
+            result = ocr.ocr(image_path , cls=True)
             # 檢查 OCR 結果是否有效
             if result is None or result == [None]:
                 print("圖片中沒有可辨識的文字, return False, []")

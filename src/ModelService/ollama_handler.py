@@ -15,6 +15,7 @@ class OllamaHandler:
         )
         
         if isDeepSearch:
+            print("isDeepSearch:"+isDeepSearch)
             search_results = self.search_handler.resultAnalysis(question)
             if isinstance(search_results, list):
                 search_str = "\n".join([f"標題：{r['標題']}\n連結：{r['連結']}\n摘要：{r['摘要']}" for r in search_results])
